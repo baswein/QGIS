@@ -40,6 +40,8 @@ from qgis.core import (QgsProcessingException,
                        QgsProcessingParameterDefinition,
                        QgsProcessingParameterFileDestination,
                        QgsProcessingParameterFolderDestination,
+                       QgsProcessingParameterMultipleLayers,
+                       QgsProcessingParameterMapTheme,
                        QgsGeometry,
                        QgsRectangle,
                        QgsMapSettings,
@@ -49,6 +51,7 @@ from qgis.core import (QgsProcessingException,
                        QgsLabelingEngineSettings,
                        QgsApplication,
                        QgsExpressionContextUtils,
+                       QgsProcessing,
                        QgsProcessingAlgorithm)
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 import threading
@@ -143,6 +146,8 @@ class TilesXYZAlgorithmBase(QgisAlgorithm):
     TILE_FORMAT = 'TILE_FORMAT'
     QUALITY = 'QUALITY'
     METATILESIZE = 'METATILESIZE'
+    MAP_THEME = 'MAP_THEME'
+    LAYER = 'LAYER'
 
     def initAlgorithm(self, config=None):
         self.addParameter(QgsProcessingParameterExtent(self.EXTENT, self.tr('Extent')))
@@ -180,12 +185,36 @@ class TilesXYZAlgorithmBase(QgisAlgorithm):
                                                        minValue=1,
                                                        maxValue=20,
                                                        defaultValue=4))
+        self.addParameter(QgsProcessingParameterMapTheme(self.MAP_THEME,
+                                                         self.tr('Map theme'),
+                                                         optional=True))
+        self.addParameter(QgsProcessingParameterMultipleLayers(self.LAYER,
+                                                               description=self.tr('Layer(s) to render'),
+                                                               layerType=QgsProcessing.TypeMapLayer,
+                                                               optional=True))
         self.thread_nr_re = re.compile('[0-9]+$')  # thread number regex
 
     def prepareAlgorithm(self, parameters, context, feedback):
         project = context.project()
-        visible_layers = [item.layer() for item in project.layerTreeRoot().findLayers() if item.isVisible()]
-        self.layers = [l for l in project.layerTreeRoot().layerOrder() if l in visible_layers]
+        map_theme = self.parameterAsString(
+            parameters,
+            self.MAP_THEME,
+            context)
+        layer = self.parameterAsLayerList(
+            parameters,
+            self.LAYER,
+            context)
+        self.settings = QgsMapSettings()
+        self.style_override = {}
+
+        if project.instance().mapThemeCollection().hasMapTheme(map_theme):
+            self.layers = project.instance().mapThemeCollection().mapThemeVisibleLayers(map_theme)
+            self.style_override = project.instance().mapThemeCollection().mapThemeStyleOverrides(map_theme)
+        elif layer:
+            self.layers = layer
+        else:
+            visible_layers = [item.layer() for item in project.layerTreeRoot().findLayers() if item.isVisible()]
+            self.layers = [l for l in project.layerTreeRoot().layerOrder() if l in visible_layers]
         return True
 
     def renderSingleMetatile(self, metatile):
@@ -273,6 +302,7 @@ class TilesXYZAlgorithmBase(QgisAlgorithm):
             self.settingsDictionary[thread].setTransformContext(context.transformContext())
             self.settingsDictionary[thread].setDestinationCrs(dest_crs)
             self.settingsDictionary[thread].setLayers(self.layers)
+            self.settingsDictionary[thread].setLayerStyleOverrides(self.style_override)
             self.settingsDictionary[thread].setOutputDpi(dpi)
             if self.tile_format == 'PNG':
                 self.settingsDictionary[thread].setBackgroundColor(self.color)
