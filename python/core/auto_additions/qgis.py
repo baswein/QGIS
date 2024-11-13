@@ -10345,7 +10345,10 @@ Qgis.ZonalStatistic.Minority.__doc__ = "Minority of pixel values"
 Qgis.ZonalStatistic.Majority.__doc__ = "Majority of pixel values"
 Qgis.ZonalStatistic.Variety.__doc__ = "Variety (count of distinct) pixel values"
 Qgis.ZonalStatistic.Variance.__doc__ = "Variance of pixel values"
-Qgis.ZonalStatistic.All.__doc__ = "All statistics"
+Qgis.ZonalStatistic.MinimumPoint.__doc__ = "Pixel centroid for minimum pixel value \n.. versionadded:: 3.42"
+Qgis.ZonalStatistic.MaximumPoint.__doc__ = "Pixel centroid for maximum pixel value \n.. versionadded:: 3.42"
+Qgis.ZonalStatistic.All.__doc__ = "All statistics. For QGIS 3.x this includes ONLY numeric statistics, but for 4.0 this will be extended to included non-numeric statistics. Consider using AllNumeric instead."
+Qgis.ZonalStatistic.AllNumeric.__doc__ = "All numeric statistics \n.. versionadded:: 3.42"
 Qgis.ZonalStatistic.Default.__doc__ = "Default statistics"
 Qgis.ZonalStatistic.__doc__ = """Statistics to be calculated during a zonal statistics operation.
 
@@ -10363,7 +10366,19 @@ Qgis.ZonalStatistic.__doc__ = """Statistics to be calculated during a zonal stat
 * ``Majority``: Majority of pixel values
 * ``Variety``: Variety (count of distinct) pixel values
 * ``Variance``: Variance of pixel values
-* ``All``: All statistics
+* ``MinimumPoint``: Pixel centroid for minimum pixel value
+
+  .. versionadded:: 3.42
+
+* ``MaximumPoint``: Pixel centroid for maximum pixel value
+
+  .. versionadded:: 3.42
+
+* ``All``: All statistics. For QGIS 3.x this includes ONLY numeric statistics, but for 4.0 this will be extended to included non-numeric statistics. Consider using AllNumeric instead.
+* ``AllNumeric``: All numeric statistics
+
+  .. versionadded:: 3.42
+
 * ``Default``: Default statistics
 
 """
