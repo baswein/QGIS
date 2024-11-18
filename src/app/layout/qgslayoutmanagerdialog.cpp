@@ -96,7 +96,7 @@ QgsLayoutManagerDialog::QgsLayoutManagerDialog( QWidget *parent, Qt::WindowFlags
 
   mTemplate->addItem( tr( "Empty Layout" ) );
   mTemplate->addItem( tr( "Empty Report" ) );
-  mTemplate->addItem( tr( "Specific" ) );
+  mTemplate->addItem( tr( "From Template File" ) );
 
   mUserTemplatesDir = QgsApplication::qgisSettingsDirPath() + "/composer_templates";
   QMap<QString, QString> userTemplateMap = defaultTemplates( true );

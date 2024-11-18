@@ -119,7 +119,7 @@
       <enum>Qt::StrongFocus</enum>
      </property>
      <property name="title">
-      <string>New from Template</string>
+      <string>New Layout or Report</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <property name="spacing">
