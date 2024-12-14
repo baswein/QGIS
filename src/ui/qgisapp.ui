@@ -2518,11 +2518,14 @@ Acts on the currently active layer only.</string>
      <normaloff>:/images/themes/default/mActionScaleFeature.svg</normaloff>:/images/themes/default/mActionScaleFeature.svg</iconset>
    </property>
    <property name="text">
-    <string>Scale Feature(s)</string>
+    <string>Scale Features</string>
    </property>
    <property name="toolTip">
-    <string>Scale Feature(s)
-Ctrl+click to set the base point.</string>
+    <string>Scale Features
+Resizes previously selected features or a clicked feature:
+Click feature, move mouse to scale, and 2nd click to finish.
+Or click feature, type scale factor, and press enter to finish. 
+Ctrl+click to set a different base point.</string>
    </property>
   </action>
   <action name="mActionRotateFeature">
