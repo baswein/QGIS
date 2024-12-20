@@ -984,6 +984,12 @@
    <property name="text">
     <string>Move Feature(s)</string>
    </property>
+   <property name="toolTip">
+    <string>Move Feature(s)
+Moves previously selected feature(s) or a clicked feature:
+Click feature, move mouse, and 2nd click to finish.
+Enable advanced digitizing tools for more control.</string>
+   </property>
   </action>
   <action name="mActionReshapeFeatures">
    <property name="checkable">
@@ -2243,8 +2249,7 @@ Creates an offset or an offset copy of a geometry:
 Click to select a geometry to offset.
 2nd click to specify offset distance.
 Ctrl+2nd click to offset a copy of the selected geometry.
-Ctrl+click with snapping to select another layer's geometry to copy and offset.
-</string>
+Ctrl+click with snapping to select another layer's geometry to copy and offset.</string>
    </property>
   </action>
   <action name="mActionCopyStyle">
@@ -2518,11 +2523,11 @@ Acts on the currently active layer only.</string>
      <normaloff>:/images/themes/default/mActionScaleFeature.svg</normaloff>:/images/themes/default/mActionScaleFeature.svg</iconset>
    </property>
    <property name="text">
-    <string>Scale Features</string>
+    <string>Scale Feature(s)</string>
    </property>
    <property name="toolTip">
-    <string>Scale Features
-Resizes previously selected features or a clicked feature:
+    <string>Scale Feature(s)
+Resizes previously selected feature(s) or a clicked feature:
 Click feature, move mouse to scale, and 2nd click to finish.
 Or click feature, type scale factor, and press enter to finish. 
 Ctrl+click to set a different base point.</string>
@@ -2919,7 +2924,10 @@ Shift+click on existing inner ring to fill.</string>
     <string>Copy and Move Feature(s)</string>
    </property>
    <property name="toolTip">
-    <string>Copy and Move Feature(s)</string>
+    <string>Copy and Move Feature(s)
+Copies and moves previously selected feature(s) or a clicked feature:
+Click feature, move mouse, and 2nd click to finish.
+Enable advanced digitizing tools for more control.</string>
    </property>
   </action>
   <action name="mActionDecorationLayoutExtent">
